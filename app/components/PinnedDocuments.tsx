@@ -80,10 +80,11 @@ function PinnedDocuments({
   }, [pins]);
 
   const sensors = useSensors(
+    // Activate on movement rather than on time held, otherwise a press that is
+    // held briefly is treated as a drag and the card's click is swallowed.
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 100,
-        tolerance: 5,
+        distance: 5,
       },
     }),
     useSensor(KeyboardSensor, {
